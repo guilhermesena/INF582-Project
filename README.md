@@ -4,6 +4,6 @@ Data Mining project for INF582 based on the following [kaggle challenge](https:/
 
 TODO
 ------------------
--[ ] Data Pre-processing - @tlgimenes
--[ ] Feature engineering - @guilhermesena
--[ ] Learning algorithm - *Undefined*
+- [ ] Data Pre-processing - @tlgimenes
+- [ ] Feature engineering - @guilhermesena
+- [ ] Learning algorithm - *Undefined*
