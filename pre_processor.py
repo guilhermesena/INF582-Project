@@ -34,6 +34,7 @@ types_parsed_test_file = [('PassengerId', np.float64),('Pclass', np.float64),
 
 ###############################################################################
 ## String definitions
+survived = {0 : -1, 1: 1}
 sex = {'male':0, 'female': 1}
 pClass = {1: 0, 2: 1, 3: 2}
 embarked = {'S': 0, 'C': 1, 'Q': 2, '': 3}
@@ -48,7 +49,7 @@ def parse(train_data, type='train') :
         parsed_data = np.ndarray(shape=(np.shape(train_data)[0],), 
             dtype=types_parsed_train_file);
         # Parses Survived column
-        parsed_data['Survived'] = train_data['Survived'];
+        parse_by_hash(parsed_data['Survived'], train_data['Survived'], survived);
 
     else:
         parsed_data = np.ndarray(shape=(np.shape(train_data)[0],), 
@@ -59,9 +60,9 @@ def parse(train_data, type='train') :
     # Parses PassengerId
     copy_replace_nan(parsed_data['PassengerId'], train_data['PassengerId']);
     # Parses Passenger class column
-    parse_pClass_col(parsed_data['Pclass'], train_data['Pclass']);
+    parse_by_hash(parsed_data['Pclass'], train_data['Pclass'], pClass);
     # Parses Sex column
-    parse_sex_col(parsed_data['Sex'], train_data['Sex']);
+    parse_by_hash(parsed_data['Sex'], train_data['Sex'], sex);
     # Parses Age column
     copy_replace_nan(parsed_data['Age'], train_data['Age']);
     # Parses SibSp column
@@ -71,7 +72,7 @@ def parse(train_data, type='train') :
     # Parses Fare
     copy_replace_nan(parsed_data['Fare'], train_data['Fare']);
     # Parses embarked column
-    parse_embarked_col(parsed_data['Embarked'], train_data['Embarked']);
+    parse_by_hash(parsed_data['Embarked'], train_data['Embarked'], embarked);
 
     # Checks if nan left on table
     if is_nan(parsed_data, type) :
@@ -81,25 +82,14 @@ def parse(train_data, type='train') :
     return parsed_data;
 
 ###############################################################################
+## Parses each column using the hash
 ## @arg0: column of the parsed data to be filled
 ## @arg1: column of the raw file to be parsed
-def parse_sex_col(parsed_col, raw_col) :
+## @arg2: hash to parse
+def parse_by_hash(parsed_col, raw_col, hash) :
     for i in range(np.shape(raw_col)[0]) :
-        parsed_col[i] = sex[raw_col[i]];
+        parsed_col[i] = hash[raw_col[i]];
 
-###############################################################################
-## @arg0: column of the parsed data to be filled
-## @arg1: column of the raw file to be parsed
-def parse_pClass_col(parsed_col, raw_col) :
-    for i in range(np.shape(raw_col)[0]) :
-        parsed_col[i] = pClass[raw_col[i]];
-
-###############################################################################
-## @arg0: column of the parsed data to be filled
-## @arg1: column of the raw file to be parsed
-def parse_embarked_col(parsed_col, raw_col) :
-    for i in range(np.shape(raw_col)[0]) :
-        parsed_col[i] = embarked[raw_col[i]];
 
 ###############################################################################
 ## Substitutes the NaN for the mean of the args

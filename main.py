@@ -22,11 +22,14 @@ import os
 import numpy as np
 
 from pre_processor import parse
+from ada_boost import ada_boost
 
 ###############################################################################
 ## C-style defines
 TRAIN_PATH_DATA_DEFAULT = 'Data/train.csv'
 TEST_PATH_DATA_DEFAULT = 'Data/test.csv'
+
+OUTPUT_FILE_NAME = 'survived.csv'
 
 ###############################################################################
 ## Raw file data type
@@ -59,9 +62,11 @@ def main():
     parsed_train_data = parse(train_data, type='train');
     parsed_test_data = parse(test_data, type='test');
 
-    # Saves data in file for sanity check
-    np.savetxt("train.csv", parsed_train_data, delimiter=',');
-    np.savetxt("test.csv", parsed_test_data, delimiter=',');
+    # Calls the learning algorithm
+    survived = ada_boost(parsed_train_data, parsed_test_data);
+
+    # Saves data in file for sanity check 
+    np.savetxt(OUTPUT_FILE_NAME, survived, delimiter=',');
 
 ###############################################################################
 ## A simple parser for the command line interface (CLI)

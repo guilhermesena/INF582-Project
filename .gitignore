@@ -44,3 +44,9 @@ Temporary Items
 
 # PYC
 *.pyc
+
+# PyCache
+__pycache__
+
+# specific csv out files
+survived.csv
