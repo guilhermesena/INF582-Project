@@ -34,8 +34,7 @@ types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch',
 ## @returns: Array with indices indicating death or not
 def ada_boost(train_data, test_data) :
     # Create and fit an AdaBoosted decision tree
-    bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=2), algorithm="SAMME",
-                            n_estimators=891);
+    bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=8), n_estimators=100);
 
     # Select columns of train_data 
     survived_training = train_data['Survived'];
@@ -47,6 +46,7 @@ def ada_boost(train_data, test_data) :
     # Predicts
     survived_test = bdt.predict(np.matrix(test_data[types_clf]).T);
 
+    # Converts -1,1 space to 0 1 space
     to_01_space(survived_test);
 
     return survived_test;
