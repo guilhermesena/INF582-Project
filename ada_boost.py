@@ -31,7 +31,7 @@ types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch',
 ## Does the adaBoost and returns an array containning died or not 
 ## @arg0: Train data
 ## @arg1: Test data
-## @returns: Array with indices indicating death or not
+## @returns: Array with 1 if survived 0 if not
 def ada_boost(train_data, test_data) :
     # Create and fit an AdaBoosted decision tree
     bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=8), n_estimators=100);

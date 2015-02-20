@@ -65,8 +65,13 @@ def main():
     # Calls the learning algorithm
     survived = ada_boost(parsed_train_data, parsed_test_data);
 
+    # Formats the output data
+    out_data = np.array(zip(parsed_test_data['PassengerId'], survived), 
+                dtype=[('PassengerId', np.int64), ('Survived', np.int64)]);
+
     # Saves data in file for sanity check 
-    np.savetxt(OUTPUT_FILE_NAME, survived, delimiter=',');
+    np.savetxt(OUTPUT_FILE_NAME, out_data, delimiter=',', fmt=['%d', '%d'],
+              header='PassengerId,Survived', comments='');
 
 ###############################################################################
 ## A simple parser for the command line interface (CLI)
