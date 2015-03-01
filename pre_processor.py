@@ -40,6 +40,26 @@ pClass = {1: 0, 2: 1, 3: 2}
 embarked = {'S': 0, 'C': 1, 'Q': 2, '': 3}
 
 ###############################################################################
+# Dimensionality reduction functions
+
+def cluster_age(age_in):
+    n = len(age_in)
+    ans = np.zeros(n)
+    for i in range(n):
+        if age_in[i] <= 10:
+            ans[i] = 0
+        elif age_in[i] > 10 and age_in[i] <= 30:
+            ans[i] = 1
+        else:
+            ans[i] = 2
+    
+    return ans
+    
+
+
+###############################################################################
+
+
 ## @arg0: Train data based on the data type defined in main
 ## @returns: New created ndarray with the data types specified above
 def parse(train_data, type='train') :
@@ -54,7 +74,7 @@ def parse(train_data, type='train') :
     else:
         parsed_data = np.ndarray(shape=(np.shape(train_data)[0],), 
             dtype=types_parsed_test_file);
-
+    
     # Parses each column
      
     # Parses PassengerId
@@ -78,6 +98,9 @@ def parse(train_data, type='train') :
     if is_nan(parsed_data, type) :
         print ("Error Fatal: NaNs left on parsed data :(");
         sys.exit(1);
+
+    #Clusters data for smaller variance
+    parsed_data['Age'] = cluster_age(parsed_data['Age'])
 
     return parsed_data;
 
