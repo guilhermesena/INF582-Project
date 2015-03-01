@@ -23,6 +23,7 @@ import numpy as np
 
 from pre_processor import parse
 from ada_boost import ada_boost
+from perceptron import perceptron
 
 ###############################################################################
 ## C-style defines
@@ -63,7 +64,9 @@ def main():
     parsed_test_data = parse(test_data, type='test');
 
     # Calls the learning algorithm
-    survived = ada_boost(parsed_train_data, parsed_test_data);
+    #survived = ada_boost(parsed_train_data, parsed_test_data);
+    
+    survived = perceptron(parsed_train_data, parsed_test_data);
 
     # Formats the output data
     out_data = np.array(zip(parsed_test_data['PassengerId'], survived), 
