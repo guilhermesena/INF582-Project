@@ -25,6 +25,7 @@ from pre_processor import parse
 from ada_boost import ada_boost
 from perceptron import perceptron
 from if_else import custom_heuristic
+from LDA import LDA
 
 ###############################################################################
 ## C-style defines
@@ -65,15 +66,11 @@ def main():
     parsed_test_data = parse(test_data, type='test');
 
     # Calls the learning algorithm
-<<<<<<< HEAD
     survived = ada_boost(parsed_train_data, parsed_test_data);
     #survived = perceptron(parsed_train_data, parsed_test_data);
+    #survived = LDA(parsed_train_data, parsed_test_data);
+
     #survived = custom_heuristic(test_path);
-=======
-    #survived = ada_boost(parsed_train_data, parsed_test_data);
-    
-    survived = perceptron(parsed_train_data, parsed_test_data);
->>>>>>> 35496e053835cb9f98bbf6f21d4d178ee4520bfa
 
     # Formats the output data
     out_data = np.array(zip(parsed_test_data['PassengerId'], survived), 

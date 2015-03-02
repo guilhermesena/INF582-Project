@@ -6,14 +6,14 @@ import scipy.linalg as linalg
 ## Choose here the columns of the training data that will be used by LDA
 types_clf = ['Sex','Age','Pclass','SibSp', 'Embarked'];
 
-def to_matrix(tupple, tupple_type):
-    i0 = np.shape(tupple)[0];
+def to_ndarray(tupple, tupple_type):
+    i0 = np.shape(tupple[tupple_type])[0];
     j0 = np.shape(tupple_type)[0];
     mat = np.ndarray((i0,j0));
 
     for i in range(i0):
         for j in range(j0):
-            mat[i][j] = tupple[i][j];
+            mat[i][j] = tupple[tupple_type][i][j];
 
     return mat;
 
@@ -90,10 +90,9 @@ def predict(X, projected_centroid, W):
     return label
 
 def LDA (training_data, test_data):
-        learning_data = to_matrix(training_data[types_clf], types_clf)
-        print(learning_data)
+        learning_data = to_ndarray(training_data, types_clf)
         W, projected_centroid, X_lda = my_LDA(learning_data, training_data['Survived'])
         
-        learning_test = to_matrix(test_data[types_clf], types_clf)
+        learning_test = to_ndarray(test_data, types_clf)
         ans = predict(learning_test, projected_centroid, W)
         return ans

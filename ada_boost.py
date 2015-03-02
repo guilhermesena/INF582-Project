@@ -23,9 +23,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 ###############################################################################
 ## Choose here the columns of the training data that will be used by Ada Boost
-types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 
-             'Fare', 'Embarked'];
-
+types_clf = ['Pclass', 'Age', 'Sex'];
 
 ###############################################################################
 ## Does the adaBoost and returns an array containning died or not 
@@ -34,17 +32,17 @@ types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch',
 ## @returns: Array with 1 if survived 0 if not
 def ada_boost(train_data, test_data) :
     # Create and fit an AdaBoosted decision tree
-    bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=8), n_estimators=100);
+    bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=10), n_estimators=10);
 
     # Select columns of train_data 
     survived_training = train_data['Survived'];
-    learning_data = np.matrix(train_data[types_clf]).T;
+    learning_data = to_ndarray(train_data, types_clf);
 
     # Fits model
     bdt.fit(learning_data, survived_training);
 
     # Predicts
-    survived_test = bdt.predict(np.matrix(test_data[types_clf]).T);
+    survived_test = bdt.predict(to_ndarray(test_data, types_clf));
 
     # Converts -1,1 space to 0 1 space
     to_01_space(survived_test);
@@ -58,4 +56,16 @@ def to_01_space(survived_test) :
     for i in range(np.shape(survived_test)[0]) :
         survived_test[i] = hash[survived_test[i]];
 
+###############################################################################
+## Converts a tupple to an ndarray
+def to_ndarray(tupple, tupple_type):
+    i0 = np.shape(tupple[tupple_type])[0];
+    j0 = np.shape(tupple_type)[0];
+    mat = np.ndarray((i0,j0));
+
+    for i in range(i0):
+        for j in range(j0):
+            mat[i][j] = tupple[tupple_type][i][j];
+
+    return mat;
 ###############################################################################

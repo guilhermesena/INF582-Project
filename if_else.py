@@ -1,10 +1,15 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
-#
-# Copyright © 2015 zip76 <zip76@BugMachine2>
-#
-# Distributed under terms of the MIT license.
+# ============================================================================
+#       Filename:  if_else.py
+#    Description:  If-Else hand-made machine learning
+#        Created:  2015-02-11 19:45 
+#         Author:  Tiago Lobato Gimenes        (tlgimenes@gmail.com)
+#     Co-Authors:  <-- put your name here -->
+#      Copyright:  Tiago Lobato Gimenes
+#       Lincense:  MIT
+# ============================================================================
 
 """
 If else like file from the internet
@@ -90,7 +95,5 @@ passenger['Age'] < 1 and passenger['Pclass'] == 3):
         else:
             predictions[passenger['PassengerId']] = 0
 
-    return to_array(predictions);
+    return np.asarray(predictions.values());
 
-def to_array(hash):
-    return np.asarray(hash.values());

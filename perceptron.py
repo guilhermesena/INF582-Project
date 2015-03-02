@@ -1,8 +1,9 @@
+import numpy as np
 from numpy import *
 from random import *
 ###############################################################################
 ## Choose here the columns of the training data that will be used by Perceptron
-types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Embarked'];
+types_clf = ['Pclass', 'Sex', 'Age'];
 
 
 ###############################################################################
@@ -18,8 +19,7 @@ def train_perceptron (train_data):
     
     
     #subset of useful data
-    learning_data = matrix(train_data[types_clf]).T.getA1();
-    print(learning_data)
+    learning_data = to_ndarray(train_data, types_clf);
     
     #Num columns and rows
     num_feats = len(learning_data[0])
@@ -45,7 +45,6 @@ def train_perceptron (train_data):
                 predicted += w[j]*learning_data[i][j]
                 
             predicted = heaviside(predicted)
-            #print("predicted = %i expected = %i" % (predicted, expected))
             if predicted != expected:
                 errors += 1
             
@@ -55,8 +54,19 @@ def train_perceptron (train_data):
         
        
     rate = 100*errors/num_inputs
-    print("error rate = %f" % rate)
     return w
+
+# Converts tupple to ndarray
+def to_ndarray(tupple, tupple_type):
+    i0 = np.shape(tupple[tupple_type])[0];
+    j0 = np.shape(tupple_type)[0];
+    mat = np.ndarray((i0,j0));
+
+    for i in range(i0):
+        for j in range(j0):
+            mat[i][j] = tupple[tupple_type][i][j];
+
+    return mat;
 
 #predicts output with vector w from training set
 def calc_perceptron(w, data_row):
@@ -74,7 +84,7 @@ def perceptron (train_data, test_data):
     
     #first, trains the vector w
     w = train_perceptron (train_data)
-    
+
     #gets subset of useful data
     prediction_data = matrix(test_data[types_clf]).T.getA1();
     
