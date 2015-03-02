@@ -1,10 +1,21 @@
 import numpy as np
 import scipy as sp
+import scipy.linalg as linalg
 
 ###############################################################################
 ## Choose here the columns of the training data that will be used by LDA
-types_clf = ['Pclass', 'Sex', 'Age'];
+types_clf = ['Sex','Age','Pclass','SibSp', 'Embarked'];
 
+def to_matrix(tupple, tupple_type):
+    i0 = np.shape(tupple)[0];
+    j0 = np.shape(tupple_type)[0];
+    mat = np.ndarray((i0,j0));
+
+    for i in range(i0):
+        for j in range(j0):
+            mat[i][j] = tupple[i][j];
+
+    return mat;
 
 def my_LDA(X, Y):
     """
@@ -13,7 +24,6 @@ def my_LDA(X, Y):
     Y: class labels of training data
 
     """    
-    
     classLabels = np.unique(Y)
     classNum = len(classLabels)
     dim = len(X[0])
@@ -39,6 +49,7 @@ def my_LDA(X, Y):
     # Solve the eigenvalue problem for discriminant directions to maximize class seperability while simultaneously minimizing
     # the variance within each class
     # The exception code can be ignored for the example dataset
+    
     try:
         S = np.dot(linalg.inv(Sw), Sb)
         eigval, eigvec = linalg.eig(S)
@@ -79,8 +90,10 @@ def predict(X, projected_centroid, W):
     return label
 
 def LDA (training_data, test_data):
-        learning_data = np.matrix(training_data[types_clf]).T.getA1()
+        learning_data = to_matrix(training_data[types_clf], types_clf)
+        print(learning_data)
         W, projected_centroid, X_lda = my_LDA(learning_data, training_data['Survived'])
         
-        learning_test = np.matrix(test_data[types_clf]).T.getA1()
-        return predict(learning_test, projected_centroid, W)
+        learning_test = to_matrix(test_data[types_clf], types_clf)
+        ans = predict(learning_test, projected_centroid, W)
+        return ans
