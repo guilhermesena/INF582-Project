@@ -2,8 +2,7 @@ from numpy import *
 from random import *
 ###############################################################################
 ## Choose here the columns of the training data that will be used by Perceptron
-#types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked'];
-types_clf = ['Pclass', 'Sex', 'Age'];
+types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Embarked'];
 
 
 ###############################################################################
@@ -14,18 +13,13 @@ def heaviside(x):
         return 1
     return 0
 
-def sign(x):
-    if x > 0:
-        return 1
-    
-    return -1
-
 #train_perceptron: returns a vector (w) for the dot product to predict test data
 def train_perceptron (train_data):
     
     
     #subset of useful data
     learning_data = matrix(train_data[types_clf]).T.getA1();
+    print(learning_data)
     
     #Num columns and rows
     num_feats = len(learning_data[0])
@@ -36,23 +30,32 @@ def train_perceptron (train_data):
     
     #The output initialization (all zeros)
     w = zeros (num_feats)
+    errors = 0
     
-    
-    for i in range (num_inputs):
-        expected = heaviside(train_data[i]['Survived'])
-        
-        #attempts to predict the output
-        predicted = 0
-        for j in range(num_feats):
-            predicted += w[j]*learning_data[i][j]
-        predicted = heaviside(predicted)
-        
-        #print("expected = %i predicted = %i" % (expected, predicted))
-        
-        #rotate the hyperplane (if prediction was wrong)
-        for j in range(num_feats):
-            w[j] += eta*(expected - predicted)*learning_data[i][j]
+    for nrep in range(1000):
+        #calculates the error rate (to find theta)
+        errors = 0
+
+        for i in range (num_inputs):
+            expected = heaviside(train_data[i]['Survived'])
             
+            #attempts to predict the output
+            predicted = 0
+            for j in range(num_feats):
+                predicted += w[j]*learning_data[i][j]
+                
+            predicted = heaviside(predicted)
+            #print("predicted = %i expected = %i" % (predicted, expected))
+            if predicted != expected:
+                errors += 1
+            
+            #rotate the hyperplane (if prediction was wrong)
+            for j in range(num_feats):
+                w[j] += eta*(expected - predicted)*learning_data[i][j]
+        
+       
+    rate = 100*errors/num_inputs
+    print("error rate = %f" % rate)
     return w
 
 #predicts output with vector w from training set
@@ -60,9 +63,9 @@ def calc_perceptron(w, data_row):
     ans = 0
     
     #basically we get the sign of the linear combination
-    for i in range (len(data_row) - 1):
+    for i in range (len(data_row)):
         ans = ans + w[i]*data_row[i]
-        
+    
     return heaviside (ans);
         
 
@@ -82,4 +85,3 @@ def perceptron (train_data, test_data):
         ans[i] = calc_perceptron(w, prediction_data[i])
     
     return ans
-
