@@ -23,8 +23,7 @@ from sklearn.tree import DecisionTreeClassifier
 
 ###############################################################################
 ## Choose here the columns of the training data that will be used by Ada Boost
-types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked'];
-#types_clf = ['Age', 'Sex', 'Pclass', 'Embarked', 'Parch', 'SibSp'];
+types_clf = ['Pclass', 'Sex', 'Age'];
 
 
 ###############################################################################
@@ -34,7 +33,7 @@ types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked'];
 ## @returns: Array with 1 if survived 0 if not
 def ada_boost(train_data, test_data) :
     # Create and fit an AdaBoosted decision tree
-    bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=64), n_estimators=100);
+    bdt = AdaBoostClassifier(DecisionTreeClassifier(max_depth=10), n_estimators=10);
 
     # Select columns of train_data 
     survived_training = train_data['Survived'];

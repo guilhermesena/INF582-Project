@@ -49,4 +49,12 @@ Temporary Items
 __pycache__
 
 # specific csv out files
-survived.csv
+survived.csv 
+correct_answer.csv
+correct_answer_if_else.csv
+correct_answer.xlsx
+
+# LaTeX
+*.aux
+*.log
+*.gz.*
