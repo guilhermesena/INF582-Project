@@ -57,4 +57,4 @@ correct_answer.xlsx
 # LaTeX
 *.aux
 *.log
-*.gz.*
+*.gz
