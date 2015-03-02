@@ -100,7 +100,7 @@ def parse(train_data, type='train') :
         sys.exit(1);
 
     #Clusters data for smaller variance
-    parsed_data['Age'] = cluster_age(parsed_data['Age'])
+    #parsed_data['Age'] = cluster_age(parsed_data['Age'])
 
     return parsed_data;
 

@@ -2,8 +2,8 @@ from numpy import *
 from random import *
 ###############################################################################
 ## Choose here the columns of the training data that will be used by Perceptron
-types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 
-             'Fare', 'Embarked'];
+#types_clf = ['Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked'];
+types_clf = ['Pclass', 'Sex', 'Age'];
 
 
 ###############################################################################
@@ -47,7 +47,7 @@ def train_perceptron (train_data):
             predicted += w[j]*learning_data[i][j]
         predicted = heaviside(predicted)
         
-        print("expected = %i predicted = %i" % (expected, predicted))
+        #print("expected = %i predicted = %i" % (expected, predicted))
         
         #rotate the hyperplane (if prediction was wrong)
         for j in range(num_feats):
@@ -82,3 +82,4 @@ def perceptron (train_data, test_data):
         ans[i] = calc_perceptron(w, prediction_data[i])
     
     return ans
+
