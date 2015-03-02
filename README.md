@@ -4,6 +4,9 @@ Data Mining project for INF582 based on the following [kaggle challenge](https:/
 
 TODO
 ------------------
+- [x] Project Skeleton - [tlgimenes](https://github.com/tlgimenes) [DONE]
 - [x] Data Pre-processing - [tlgimenes](https://github.com/tlgimenes) [DONE]
-- [ ] Feature engineering - [guilhermesena](https://github.com/guilhermesena)
-- [ ] Learning algorithm - *Undefined*
+- [x] Feature engineering - [guilhermesena](https://github.com/guilhermesena) [DONE]
+- [x] AdaBoost - [tlgimenes](https://github.com/tlgimenes) [DONE]
+- [x] Perceptron - [guilhermesena](https://github.com/guilhermesena) [DONE]
+- [x] LDA - [guilhermesena](https://github.com/guilhermesena) [DONE]
