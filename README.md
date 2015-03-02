@@ -2,6 +2,10 @@ Titanic: Machine learning from disaster
 ==================
 Data Mining project for INF582 based on the following [kaggle challenge](https://www.kaggle.com/c/titanic-gettingStarted)
 
+Repport
+------------------
+You can find our repport in the doc folder
+
 TODO
 ------------------
 - [x] Project Skeleton - [tlgimenes](https://github.com/tlgimenes) [DONE]

@@ -32,7 +32,7 @@ from LDA import LDA
 TRAIN_PATH_DATA_DEFAULT = 'Data/train.csv'
 TEST_PATH_DATA_DEFAULT = 'Data/test.csv'
 
-OUTPUT_FILE_NAME = 'survived.csv'
+OUTPUT_FILE_NAME = 'predicted_class.csv'
 
 ###############################################################################
 ## Raw file data type
