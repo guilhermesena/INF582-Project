@@ -10,8 +10,6 @@ types_clf = ['Pclass', 'Sex', 'Age'];
 
 #train_perceptron: returns a vector (w) for the dot product to predict test data
 def train_perceptron (train_data):
-    
-    
     #subset of useful data
     learning_data = to_ndarray(train_data, types_clf);
     
@@ -55,7 +53,7 @@ def to_ndarray(tupple, tupple_type):
     for i in range(i0):
         for j in range(j0):
             mat[i][j] = tupple[tupple_type][i][j];
-
+    
     return mat;
 
 
@@ -69,9 +67,6 @@ def perceptron (train_data, test_data):
     prediction_data = to_ndarray(test_data, types_clf);
     
     #runs the calculation for each test element
-    num_inputs = len(prediction_data)
-    ans = zeros (num_inputs)
-    for i in range(num_inputs):
-        ans[i] = 1 if np.dot(w, prediction_data[i]) > 0 else 0;
+    ans = [1 if np.dot(w, data) > 0 else 0 for data in prediction_data]
 
     return ans

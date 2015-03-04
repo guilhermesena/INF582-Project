@@ -45,16 +45,9 @@ def ada_boost(train_data, test_data) :
     survived_test = bdt.predict(to_ndarray(test_data, types_clf));
 
     # Converts -1,1 space to 0 1 space
-    to_01_space(survived_test);
+    survived_test = [{-1:0, 1:1}[survived] for survived in survived_test];
 
     return survived_test;
-
-###############################################################################
-## Converts -1 1 range to 0 1 range of a column
-def to_01_space(survived_test) :
-    hash = {-1: 0, 1: 1};
-    for i in range(np.shape(survived_test)[0]) :
-        survived_test[i] = hash[survived_test[i]];
 
 ###############################################################################
 ## Converts a tupple to an ndarray
